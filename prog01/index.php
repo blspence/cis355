@@ -57,8 +57,8 @@
         <!-- Table Options ************************************************* -->
         <div class="row">
             <h4> Pick a table below: <h4>
-            <p><a href="customers/customers.php" class="btn buttonClass">Customers</a></p>
-            <p><a href="events/events.php" class="btn buttonClass">Events</a></p>
+            <p><a href="customers_tutorial/customers.php" class="btn">Customers</a></p>
+            <p><a href="events_tutorial/events.php" class="btn">Events</a></p>
         </div>
     </div>
 </body>
