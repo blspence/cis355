@@ -8,7 +8,7 @@
 
     if(null == $id)
     {
-        header("Location: index.php");
+        header("Location: customers.php");
     }
     else
     {
@@ -26,8 +26,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <a class="btn" href="index.php">Back</a>
+                    <a class="btn" href="customers.php">Back</a>
                 </div>
             </div>
         </div>
