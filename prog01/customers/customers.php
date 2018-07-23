@@ -9,20 +9,18 @@
 <body>
     <div class="container">
         <div class="row">
-            <h3>Events</h3>
+            <h3>Customers</h3>
         </div>
         <div class="row">
-            <p>
-                <a href="create.php" class="btn btn-success">Create</a>
-            </p>
+            <p><a href="../index.php" class="btn">HOME</a></p>
+            <p><a href="create.php" class="btn btn-success">Create</a></p>
 
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Description</th>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Mobile Number</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,10 +32,9 @@
                     foreach($pdo->query($sql) as $row)
                     {
                         echo '<tr>';
-                        echo '<td>'. $row['event_date'] . '</td>';
-                        echo '<td>'. $row['event_time'] . '</td>';
-                        echo '<td>'. $row['event_location'] . '</td>';
-                        echo '<td>'. $row['event_description'] . '</td>';
+                        echo '<td>'. $row['name'] . '</td>';
+                        echo '<td>'. $row['email'] . '</td>';
+                        echo '<td>'. $row['mobile'] . '</td>';
                         echo '<td width=250>';
                         echo '<a class="btn" href="read.php?id='.$row['id'].'">Read</a>';
                         echo '&nbsp;';
