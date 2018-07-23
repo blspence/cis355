@@ -36,7 +36,7 @@
 
         <!-- GitHub Button ************************************************* -->
         <div class="btn-group buttonClass" role="group">
-            <a href="https://github.com/blspence/cis355/tree/master/prog01/crud"
+            <a href="https://github.com/blspence/cis355/tree/master/prog01"
                target="_blank"
                class="btn btn-primary active"
                role="button"
