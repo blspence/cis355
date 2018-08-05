@@ -106,9 +106,8 @@
                 <button type="submit" class="btn btn-success">Login</button>
 
                 </br>
-                <button type="submit" class="btn">
-                    <a href="logout.php">Logout</a>
-                </button>
+
+                <a href="logout.php" class="btn">Logout</a>
 
                 <div class="btn-group buttonClass" role="group">
                     <a href="signup.php"
