@@ -1,3 +1,10 @@
+<!--************************************************************************
+    * AUTHOR     : Brionna Spencer
+    * ASSIGNMENT : cis355 Prog02 CRUD with Session Management
+    * URL        : https://csis.svsu.edu/~blspence/cis355/prog02/index.php
+    * OVERVIEW   : PHP CRUD Tables
+    ************************************************************************ -->
+
 <?php
     session_start();
     require '../database/database.php';
@@ -10,19 +17,11 @@
 ?>
 
 <!DOCTYPE html>
-
-<!--************************************************************************
-    * AUTHOR     : Brionna Spencer
-    * ASSIGNMENT : cis355 Prog02 CRUD with Login Screen
-    * URL        : https://csis.svsu.edu/~blspence/cis355/prog02/
-    * OVERVIEW   : PHP CRUD Tables with Login
-    ************************************************************************ -->
-
 <html lang="en">
 
 <head>
     <!-- TAB-TITLE/FAVICON ************************************************* -->
-    <title>Prog02</title>
+    <title>Customers</title>
     <link rel="icon" href="../img/cardinal_logo.png" type="image/png" />
 
     <!-- METADATA ********************************************************** -->
@@ -34,7 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- LOCAL CSS CONFIG ************************************************** -->
-    <link rel="stylesheet" type="text/css" href="css/cis355.css">
+    <link rel="stylesheet" type="text/css" href="../css/cis355.css">
 
     <!-- BOOTSTRAP CONFIG ************************************************** -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -55,6 +54,10 @@
                    Go to GitHub
             </a>
         </div>
+
+        <button type="submit" class="btn">
+            <a href='session/logout.php'>Logout</a>
+        </button>
 
         <!-- Webpage Title ************************************************* -->
         <div class="row">
