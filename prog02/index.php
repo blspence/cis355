@@ -56,7 +56,7 @@
         </div>
 
         <button type="submit" class="btn">
-            <a href='session/logout.php'>Logout</a>
+            <a href="session/logout.php">Logout</a>
         </button>
 
         <!-- Webpage Title ************************************************* -->

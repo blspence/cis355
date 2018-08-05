@@ -105,11 +105,20 @@
                 <input name="password" type="password" required>
                 <button type="submit" class="btn btn-success">Login</button>
 
+                </br>
                 <button type="submit" class="btn">
-                    <a href='logout.php'>Logout</a>
+                    <a href="logout.php">Logout</a>
                 </button>
 
-                </br></br>
+                <div class="btn-group buttonClass" role="group">
+                    <a href="signup.php"
+                       class="btn btn-primary active"
+                       role="button"
+                       aria-pressed="false">
+                           Signup
+                    </a>
+                </div>
+
                 <p style='color: red;'><?php echo NEWLINE, $errorMsg; ?></p>
             </form>
         </div>
