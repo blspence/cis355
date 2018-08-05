@@ -19,7 +19,7 @@
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         Database::disconnect();
-        header("Location: customers.php");
+        header("Location: index.php");
 	}
 ?>
 
@@ -43,7 +43,7 @@
                 <p class="alert alert-error">Are you sure to delete ?</p>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-danger">Yes</button>
-                    <a class="btn" href="customers.php">No</a>
+                    <a class="btn" href="index.php">No</a>
                 </div>
             </form>
         </div>

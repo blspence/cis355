@@ -36,21 +36,19 @@
 
         <!-- GitHub Button ************************************************* -->
         <div class="btn-group buttonClass" role="group">
-            <a href="https://github.com/blspence/cis355/tree/master/prog01"
+            <a href="https://github.com/blspence/cis355/tree/master/prog02"
                target="_blank"
                class="btn btn-primary active"
                role="button"
                aria-pressed="false">
                    Go to GitHub
-           </a>
+            </a>
         </div>
 
         <!-- Webpage Title ************************************************* -->
         <div class="row">
             <div class=".col-md-12">
-                <h1> <!--style="color:white;"> -->
-                    PHP CRUD Tables</strong>
-                </h1>
+                <h1><strong>PHP CRUD Tables</strong></h1>
             </div>
         </div>
 

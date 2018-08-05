@@ -47,7 +47,7 @@
             $q = $pdo->prepare($sql);
             $q->execute(array($name,$email,$mobile));
             Database::disconnect();
-            header("Location: customers.php");
+            header("Location: index.php");
         }
     }
 ?>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Create</button>
-                    <a class="btn" href="customers.php">Back</a>
+                    <a class="btn" href="index.php">Back</a>
                     </div>
             </form>
         </div>

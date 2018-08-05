@@ -8,7 +8,7 @@
 
     if(null == $id)
     {
-        header("Location: customers.php");
+        header("Location: index.php");
     }
     else
     {
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <a class="btn" href="customers.php">Back</a>
+                    <a class="btn" href="index.php">Back</a>
                 </div>
             </div>
         </div>
