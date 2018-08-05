@@ -17,22 +17,22 @@ switch ($fun)
         $cust->create_record();
         break;
     case 2: // read
-        // to do
+        $cust->read_record();
         break;
     case 3: // update
-        // to do
+        $cust->update_record();
         break;
     case 4: // delete
-        // to do
+        $cust->delete_record();
         break;
     case 11: // insert database record from create_record()
         $cust->insert_record();
         break;
     case 33: // update database record from update_record()
-        // to do
+        $cust->insert_update_record();
         break;
     case 44: // delete database record from delete_record()
-        // to do
+        $cust->delete_update_record();
         break;
     case 0: // list
     default: // list
