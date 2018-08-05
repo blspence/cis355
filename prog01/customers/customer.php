@@ -1,6 +1,6 @@
 <?php
 
-require "../database/database.php";
+require "../../database/database.php";
 require "customers.class.php";
 $cust = new Customers();
 

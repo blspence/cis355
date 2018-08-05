@@ -12,7 +12,7 @@
 <head>
     <!-- TAB-TITLE/FAVICON ************************************************* -->
     <title>Prog02</title>
-    <link rel="icon" href="../media/cardinal_logo.png" type="image/png" />
+    <link rel="icon" href="../img/cardinal_logo.png" type="image/png" />
 
     <!-- METADATA ********************************************************** -->
     <meta charset="utf-8" />
@@ -23,11 +23,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- LOCAL CSS CONFIG ************************************************** -->
-    <link rel="stylesheet" type="text/css" href="css/prog01.css">
+    <link rel="stylesheet" type="text/css" href="css/cis355.css">
 
     <!-- BOOTSTRAP CONFIG ************************************************** -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
 
         <!-- Table Options ************************************************* -->
         <div class="row">
-            <p><a href="create.php" class="btn btn-success">Create</a></p>
+            <p><a href="crud/create.php" class="btn btn-success">Create</a></p>
 
             <table class="table table-striped table-bordered">
                 <thead>
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        require 'database/database.php';
+                        require '../database/database.php';
                         $pdo = Database::connect();
                         $sql = 'SELECT * FROM customers ORDER BY id DESC';
                         foreach($pdo->query($sql) as $row)
@@ -77,11 +77,11 @@
                             echo '<td>'. $row['email'] . '</td>';
                             echo '<td>'. $row['mobile'] . '</td>';
                             echo '<td width=250>';
-                            echo '<a class="btn" href="read.php?id='.$row['id'].'">Read</a>';
+                            echo '<a class="btn" href="crud/read.php?id='.$row['id'].'">Read</a>';
                             echo '&nbsp;';
-                            echo '<a class="btn btn-success" href="update.php?id='.$row['id'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="crud/update.php?id='.$row['id'].'">Update</a>';
                             echo '&nbsp;';
-                            echo '<a class="btn btn-danger" href="delete.php?id='.$row['id'].'">Delete</a>';
+                            echo '<a class="btn btn-danger" href="crud/delete.php?id='.$row['id'].'">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                         }

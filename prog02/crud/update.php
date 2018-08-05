@@ -1,6 +1,6 @@
 <?php
 
-    require 'database/database.php';
+    require '../../database/database.php';
 
     $id = null;
     if(!empty($_GET['id']))
@@ -10,7 +10,7 @@
 
     if(null == $id)
     {
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
 
     if(!empty($_POST))
@@ -59,7 +59,7 @@
             $q = $pdo->prepare($sql);
             $q->execute(array($name, $email, $mobile, $id));
             Database::disconnect();
-            header("Location: index.php");
+            header("Location: ../index.php");
         }
     }
     else
@@ -82,8 +82,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Update</button>
-                    <a class="btn" href="index.php">Back</a>
+                    <a class="btn" href="../index.php">Back</a>
                 </div>
             </form>
         </div>

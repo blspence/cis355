@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Prog01 - Customers</title>
+    <link rel="icon" href="../../img/cardinal_logo.png" type="image/png" />
     <meta charset="utf-8">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/bootstrap.min.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -26,7 +28,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    require '../database/database.php';
+                    require '../../database/database.php';
                     $pdo = Database::connect();
                     $sql = 'SELECT * FROM customers ORDER BY id DESC';
                     foreach($pdo->query($sql) as $row)

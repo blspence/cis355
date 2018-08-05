@@ -12,7 +12,7 @@
 <head>
     <!-- TAB-TITLE/FAVICON ************************************************* -->
     <title>Prog01</title>
-    <link rel="icon" href="../media/cardinal_logo.png" type="image/png" />
+    <link rel="icon" href="../img/cardinal_logo.png" type="image/png" />
 
     <!-- METADATA ********************************************************** -->
     <meta charset="utf-8" />
@@ -23,11 +23,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- LOCAL CSS CONFIG ************************************************** -->
-    <link rel="stylesheet" type="text/css" href="css/prog01.css">
+    <link rel="stylesheet" type="text/css" href="css/cis355.css">
 
     <!-- BOOTSTRAP CONFIG ************************************************** -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.min.js"></script>
 </head>
 
 <body>

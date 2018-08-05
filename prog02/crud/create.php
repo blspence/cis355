@@ -1,5 +1,5 @@
 <?php
-    require 'database/database.php';
+    require '../../database/database.php';
 
     if(!empty($_POST))
     {
@@ -47,7 +47,7 @@
             $q = $pdo->prepare($sql);
             $q->execute(array($name,$email,$mobile));
             Database::disconnect();
-            header("Location: index.php");
+            header("Location: ../index.php");
         }
     }
 ?>
@@ -57,8 +57,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Create</button>
-                    <a class="btn" href="index.php">Back</a>
+                    <a class="btn" href="../index.php">Back</a>
                     </div>
             </form>
         </div>
