@@ -1,5 +1,13 @@
 <?php
+    session_start();
     require '../../database/database.php';
+
+    /* prevent unauthorized access */
+    if(!$_SESSION)
+    {
+        header("Location: ../session/login.php");
+    }
+
     $id = 0;
 
     if(!empty($_GET['id']))

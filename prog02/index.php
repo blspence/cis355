@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    require '../database/database.php';
+
+    /* prevent unauthorized access */
+    if(!$_SESSION)
+    {
+        header("Location: session/login.php");
+    }
+?>
+
 <!DOCTYPE html>
 
 <!--************************************************************************
@@ -67,7 +78,6 @@
                 </thead>
                 <tbody>
                     <?php
-                        require '../database/database.php';
                         $pdo = Database::connect();
                         $sql = 'SELECT * FROM customers ORDER BY id DESC';
                         foreach($pdo->query($sql) as $row)

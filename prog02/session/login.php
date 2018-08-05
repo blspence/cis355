@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require '../database/database.php';
+    require '../../database/database.php';
 
     /* constant definition */
     define("NEWLINE", "<br />\n");
@@ -38,7 +38,7 @@
         if($data)
         {
             $_SESSION['username'] = $username;
-            header("Location: success.php");
+            header("Location: ../index.php");
         }
         else
         {
