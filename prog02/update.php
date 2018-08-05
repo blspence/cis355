@@ -1,6 +1,6 @@
 <?php
 
-    require '../database/database.php';
+    require 'database/database.php';
 
     $id = null;
     if(!empty($_GET['id']))
@@ -82,8 +82,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
