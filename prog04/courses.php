@@ -1,5 +1,8 @@
 <?php
 
+/* global variables */
+$api_base_addr = "https://api.svsu.edu/courses?prefix=";
+
 /* suppress notices for NetBeans (TODO: remove if not needed) */
 ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
@@ -98,22 +101,22 @@ function printCourses($prefix, $courseNumber, $instructor)
 {
     /* call printListing() for each semester using all parameters */
     $term = "18/SP";
-    $string = "https://api.svsu.edu/courses?prefix=$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+    $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Spring</h3>";
     printListing($string);
 
     $term = "18/SU";
-    $string = "https://api.svsu.edu/courses?prefix=$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+    $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Summer</h3>";
     printListing($string);
 
     $term = "18/FA";
-    $string = "https://api.svsu.edu/courses?prefix=$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+    $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Fall</h3>";
     printListing($string);
 
     $term = "19/WI";
-    $string = "https://api.svsu.edu/courses?prefix=$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+    $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2019 - Winter</h3>";
     printListing($string);
 }
@@ -126,15 +129,15 @@ function printSemester($term)
     /* note: printSemester() is only called when user has not entered anything in entry form */
 
     /* print all CIS courses for semester */
-    $string = "https://api.svsu.edu/courses?prefix=CIS&term=$term";
+    $string = $GLOBALS['api_base_addr'] . "CIS&term=$term";
     printListing($string);
 
     /* print all CS courses for semester */
-    $string = "https://api.svsu.edu/courses?prefix=CS&term=$term";
+    $string = $GLOBALS['api_base_addr'] . "CS&term=$term";
     printListing($string);
 
     /* print all CSIS courses for semester */
-    $string = "https://api.svsu.edu/courses?prefix=CSIS&term=$term";
+    $string = $GLOBALS['api_base_addr'] . "CSIS&term=$term";
     printListing($string);
 }
 
@@ -143,11 +146,14 @@ function printSemester($term)
 
 function printListing($apiCall)
 {
+    /* get JSON object */
     $json = curl_get_contents($apiCall);
+
+    /* convert JSON object into PHP object */
     $obj = json_decode($json);
 
     if(!($obj->courses == null))
-    {
+    { /* can show obj with var_dump($obj); */
         echo "<table border='3' width='100%'>";
 
         foreach ($obj->courses as $course)
