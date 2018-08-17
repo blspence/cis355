@@ -220,31 +220,32 @@ function getListing($apiCall)
                 continue;
             }
 
-            /* PARSE: 'username' for row color ********************************/
-            /* different <tr bgcolor=...> for each professor */
+            /* PARSE: row color based on instructor 'username' ****************/
+            $tr = "<tr bgcolor='";
             switch($course->instructors[0]->username)
             {
-                case "james": /* 1 */
-                    $listing .= "<tr bgcolor='#B19CD9'>";  /* pastel purple */
+                case "james":
+                    $tr .= "#B19CD9'>";   /* light purple */
                     break;
-                case "icho": /* 2 */
-                    $listing .= "<tr bgcolor='lightblue'>";  /* light blue */
+                case "icho":
+                    $tr .= "lightblue'>"; /* light blue */
                     break;
-                case "krahman": /* 3 */
-                    $listing .= "<tr bgcolor='pink'>";  /* pink */
+                case "krahman":
+                    $tr .= "pink'>";      /* pink */
                     break;
-                case "gpcorser": /* 4 */
-                    $listing .= "<tr bgcolor='yellow'>";   /* yellow */
+                case "gpcorser":
+                    $tr .= "yellow'>";    /* yellow */
                     break;
-                case "pdharam": /* 5 */
-                    $listing .= "<tr bgcolor='#77DD77'>";  /* pastel green (light green) */
+                case "pdharam":
+                    $tr .= "#77DD77'>";   /* light green */
                     break;
-                case "amulahuw": /* 6 */
-                    $listing .= "<tr bgcolor='#FFB347'>";  /* pastel orange */
+                case "amulahuw":
+                    $tr .= "#FFB347'>";   /* light orange */
                     break;
                 default:
-                    $listing .= "<tr>"; /* no background color */
+                    $tr = "<tr>";         /* no background color */
             }
+            $listing .= $tr;
 
             /* STORE: 'prefix courseNumber*section' ***************************/
             $listing .= "<td width='13%'>" . $course->prefix . " " . $course->courseNumber . "*" . $course->section . "</td>";
@@ -256,16 +257,19 @@ function getListing($apiCall)
             $listing .= "<td width='12%'>Av: " . $course->seatsAvailable . " / " . $course->capacity . "</td>";
 
             /* STORE: 'days startTime' ****************************************/
+            /* determine whether to use meetingTimes[0] or meetingTimes[1] */
+            $index = 1;
             if($course->meetingTimes[0]->days)
             {
-                $listing .= "<td width='15%'>" . $course->meetingTimes[0]->days . " " . $course->meetingTimes[0]->startTime;
-                $listing .= "</td>";
+                $index = 0;
             }
             else
             {
-                $listing .= "<td width='15%'>";
-                $listing .= $course->meetingTimes[1]->days . " " . $course->meetingTimes[1]->startTime . "</td> ";
+                /* no action needed */
             }
+
+            $listing .= "<td width='15%'>";
+            $listing .= $course->meetingTimes[$index]->days . " " . $course->meetingTimes[$index]->startTime . "</td> ";
 
             /* STORE: 'building room' *****************************************/
             $listing .= "<td width='10%'>";
