@@ -15,75 +15,91 @@ class Customers
 
     function form_create()
     {
-        echo '<html lang="en">                                              ';
-        echo '<head>                                                        ';
-        echo '    <meta charset="utf-8">                                    ';
-        echo '    <link href="../../css/bootstrap.min.css" rel="stylesheet">';
-        echo '    <link href="../../css/cis355.css" rel="stylesheet">       ';
-        echo '</head>                                                       ';
-        echo '                                                              ';
-        echo '<body>                                                        ';
-        echo '    <div class="container">                                   ';
-        echo '        <div class="span10 offset1">                          ';
-        echo '            <div class="row">                                 ';
-        echo "                <h3>Create a $this->title</h3>                ";
-        echo '            </div>                                            ';
-        echo '            <form class="form-horizontal"                     ';
-        echo '                  action="index.php?fnc=id_DB_MOD_CREATE"     ';
-        echo '                  method="post">                              ';
+        echo '<html lang="en">                                                ';
+        echo '<head>                                                          ';
+        echo '  <meta charset="utf-8">                                        ';
+        echo '  <link href="../../css/bootstrap.min.css" rel="stylesheet">    ';
+        echo '  <link href="../../css/cis355.css" rel="stylesheet">           ';
+        echo '</head>                                                         ';
+        echo '                                                                ';
+        echo '<body>                                                          ';
+        echo '  <div class="container">                                       ';
+        echo '    <div class="span10 offset1">                                ';
+        echo '      <div class="row">                                         ';
+        echo "        <h3>Create a $this->title</h3>                          ";
+        echo '      </div>                                                    ';
+        echo '      <form class="form-horizontal"                             ';
+        echo '            action="index.php?fnc=id_DB_MOD_CREATE"             ';
+        echo '            method="post">                                      ';
 
-        $this->control_group("name", 'Name', $this->nameError, $this->name);
-        $this->control_group("email", 'Email Address', $this->emailError, $this->email);
-        $this->control_group("mobile", 'Mobile Number', $this->mobileError, $this->mobile);
+        $this->control_group("name",
+                             'Name',
+                             $this->nameError,
+                             $this->name);
 
-        echo '                <div class="form-actions">                    ';
-        echo '                  <button type="submit"                       ';
-        echo '                          class="btn btn-success">            ';
-        echo '                              Create</button>                 ';
-        echo '                    <a class="btn" href="index.php">Back</a>  ';
-        echo '                </div>                                        ';
-        echo '            </form>                                           ';
-        echo '        </div>                                                ';
-        echo '    </div>                                                    ';
-        echo '</body>                                                       ';
-        echo '</html>                                                       ';
+        $this->control_group("email",
+                             'Email Address',
+                             $this->emailError,
+                             $this->email);
+
+        $this->control_group("mobile",
+                             'Mobile Number',
+                             $this->mobileError,
+                             $this->mobile);
+
+        echo '        <div class="form-actions">                              ';
+        echo '          <button type="submit"                                 ';
+        echo '                  class="btn btn-success">                      ';
+        echo '                      Create</button>                           ';
+        echo '          <a class="btn" href="index.php">Back</a>              ';
+        echo '        </div>                                                  ';
+        echo '      </form>                                                   ';
+        echo '    </div>                                                      ';
+        echo '  </div>                                                        ';
+        echo '</body>                                                         ';
+        echo '</html>                                                         ';
     }
 
     function form_delete()
     {
-        echo "
-        <html>
-            <head>
-                <title>Delete a $this->title</title>
-                    ";
-        echo "
-                <meta charset='UTF-8'>
-                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    ";
-        echo "
-            </head>
+        if(!empty($_GET['id']))
+        {
+            $this->id = $_REQUEST['id'];
+        }
+        else
+        {
+            header("Location: index.php");
+        }
 
-            <body>
-                <div class='container'>
-
-                    <div class='span10 offset1'>
-                        <p class='row'>
-                            <h3>Delete a $this->title</h3>
-                        </p>
-                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_DELETE' method='post'>
-                            Are you sure you want to delete?
-                            <div class='form-actions'>
-                                <button type='submit' class='btn btn-success'>Yes</button>
-                                <a class='btn' href='index.php'>No</a>
-                            </div>
-                        </form>
-                    </div>
-
-                </div> <!-- /container -->
-            </body>
-        </html>
-                    ";
+        echo '<html lang="en">                                                ';
+        echo '<head>                                                          ';
+        echo '  <meta charset="utf-8">                                        ';
+        echo '  <link href="../../css/bootstrap.min.css" rel="stylesheet">    ';
+        echo '  <link href="../../css/cis355.css" rel="stylesheet">           ';
+        echo '</head>                                                         ';
+        echo '                                                                ';
+        echo '<body>                                                          ';
+        echo '  <div class="container">                                       ';
+        echo '    <div class="span10 offset1">                                ';
+        echo '      <div class="row">                                         ';
+        echo "        <h3>Delete a $this->title</h3>                          ";
+        echo '      </div>                                                    ';
+        echo '      <form class="form-horizontal"                             ';
+        echo "            action='index.php?fnc=id_DB_MOD_DELETE&id=$this->id'";
+        echo '            method="post">                                      ';
+        echo '        <p class="alert alert-error">                           ';
+        echo '          Are you sure you want to delete?                      ';
+        echo '        </p>                                                    ';
+        echo '        <div class="form-actions">                              ';
+        echo '          <button type="submit"                                 ';
+        echo '                  class="btn btn-danger">Yes</button>           ';
+        echo '          <a class="btn" href="index.php">No</a>                ';
+        echo '        </div>                                                  ';
+        echo '      </form>                                                   ';
+        echo '    </div>                                                      ';
+        echo '  </div>                                                        ';
+        echo '</body>                                                         ';
+        echo '</html>                                                         ';
     }
 
     function form_read()
@@ -143,38 +159,49 @@ class Customers
     {
         echo 'IN FUNC: form_update() <br/>';
 
-        echo '<html lang="en">                                              ';
-        echo '<head>                                                        ';
-        echo '    <meta charset="utf-8">                                    ';
-        echo '    <link href="../../css/bootstrap.min.css" rel="stylesheet">';
-        echo '    <link href="../../css/cis355.css" rel="stylesheet">       ';
-        echo '</head>                                                       ';
-        echo '                                                              ';
-        echo '<body>                                                        ';
-        echo '    <div class="container">                                   ';
-        echo '        <div class="span10 offset1">                          ';
-        echo '            <div class="row">                                 ';
-        echo "                <h3>Update a $this->title</h3>                ";
-        echo '            </div>                                            ';
-        echo '            <form class="form-horizontal"                     ';
-        echo '                  action="index.php?fnc=id_DB_MOD_UPDATE"     ';
-        echo '                  method="post">                              ';
+        echo '<html lang="en">                                                ';
+        echo '<head>                                                          ';
+        echo '  <meta charset="utf-8">                                        ';
+        echo '  <link href="../../css/bootstrap.min.css" rel="stylesheet">    ';
+        echo '  <link href="../../css/cis355.css" rel="stylesheet">           ';
+        echo '</head>                                                         ';
+        echo '                                                                ';
+        echo '<body>                                                          ';
+        echo '  <div class="container">                                       ';
+        echo '    <div class="span10 offset1">                                ';
+        echo '      <div class="row">                                         ';
+        echo "        <h3>Update a $this->title</h3>                          ";
+        echo '      </div>                                                    ';
+        echo '      <form class="form-horizontal"                             ';
+        echo '            action="index.php?fnc=id_DB_MOD_UPDATE"             ';
+        echo '            method="post">                                      ';
 
-        $this->control_group("name", 'Name', $this->nameError, $this->name);
-        $this->control_group("email", 'Email Address', $this->emailError, $this->email);
-        $this->control_group("mobile", 'Mobile Number', $this->mobileError, $this->mobile);
+        $this->control_group("name",
+                             'Name',
+                             $this->nameError,
+                             $this->name);
 
-        echo '                <div class="form-actions">                    ';
-        echo '                  <button type="submit"                       ';
-        echo '                          class="btn btn-success">            ';
-        echo '                              Update</button>                 ';
-        echo '                    <a class="btn" href="index.php">Back</a>  ';
-        echo '                </div>                                        ';
-        echo '            </form>                                           ';
-        echo '        </div>                                                ';
-        echo '    </div>                                                    ';
-        echo '</body>                                                       ';
-        echo '</html>                                                       ';
+        $this->control_group("email",
+                             'Email Address',
+                             $this->emailError,
+                             $this->email);
+
+        $this->control_group("mobile",
+                             'Mobile Number',
+                             $this->mobileError,
+                             $this->mobile);
+
+        echo '        <div class="form-actions">                              ';
+        echo '          <button type="submit"                                 ';
+        echo '                  class="btn btn-success">                      ';
+        echo '                      Update</button>                           ';
+        echo '          <a class="btn" href="index.php">Back</a>              ';
+        echo '        </div>                                                  ';
+        echo '      </form>                                                   ';
+        echo '    </div>                                                      ';
+        echo '  </div>                                                        ';
+        echo '</body>                                                         ';
+        echo '</html>                                                         ';
     }
 
     function list_records()
@@ -221,7 +248,7 @@ class Customers
             echo "&nbsp;";
             echo "<a class='btn btn-success' href='index.php?fnc=id_DB_MOD_UPDATE&id=".$row["id"]."'>Update</a>";
             echo "&nbsp;";
-            echo "<a class='btn btn-danger' href='index.php?fnc=id_DB_MOD_DELETE&id=".$row["id"]."'>Delete</a>";
+            echo "<a class='btn btn-danger' href='index.php?fnc=id_FORM_DELETE&id=".$row["id"]."'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
@@ -295,7 +322,8 @@ class Customers
         {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO customers (name,email,mobile) values(?, ?, ?)";
+            $sql = "INSERT INTO customers (name, email, mobile)";
+            $sql .= " values(?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($this->name, $this->email, $this->mobile));
             Database::disconnect();
@@ -311,17 +339,19 @@ class Customers
     {
         echo 'IN FUNC: db_mod_update() <br/>';
 
-        $id = null;
+        $this->id = null;
 
         if(!empty($_GET['id']))
         {
-            $id = $_REQUEST['id'];
+            $this->id = $_REQUEST['id'];
         }
 
-        if(null == $id)
+        if(null == $this->id)
         {
             header("Location: index.php");
         }
+
+        echo "id: $this->id <br/>";
 
         $valid = true;
 
@@ -349,7 +379,7 @@ class Customers
 
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE customers  set name = ?, email = ?, mobile =? WHERE id = ?";
+            $sql = "UPDATE customers SET name = ?, email = ?, mobile =? WHERE id = ?";
             $q = $pdo->prepare($sql);
             $q->execute(array($this->name, $this->email, $this->mobile, $this->id));
             Database::disconnect();
@@ -363,7 +393,7 @@ class Customers
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "SELECT * FROM customers where id = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($id));
+            $q->execute(array($this->id));
             $data = $q->fetch(PDO::FETCH_ASSOC);
             $this->name = $data['name'];
             $this->email = $data['email'];
@@ -376,27 +406,23 @@ class Customers
 
     function db_mod_delete()
     {
-        $id = 0;
+        $this->id = 0;
 
         if(!empty($_GET['id']))
         {
-            $id = $_REQUEST['id'];
-        }
+            $this->id = $_REQUEST['id'];
 
-        if(!empty($_POST))
-        {
-            /* track post values */
-            $id = $_POST['id'];
+            echo "id: $this->id<br/>";
 
-            /* delete data */
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "DELETE FROM customers  WHERE id = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($id));
+            $q->execute(array($this->id));
             Database::disconnect();
-            header("Location: customers.php");
         }
+
+        header("Location: index.php");
     }
 }
 
