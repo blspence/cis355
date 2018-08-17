@@ -7,10 +7,9 @@
 
 /* element: html **************************************************************/
 html {
-    /* background-color: #1D1D1D;         /* gray */
     color: #FFFFFF;                    /* white */
     font-family: "Lato", sans-serif;
-    margin: auto 15%;                  /* vertical | horizontal */
+    margin: auto 10%;                  /* vertical | horizontal */
 }
 
 /* element: footer ************************************************************/
@@ -68,6 +67,6 @@ iframe {
 */
 @media only screen and (max-device-width: 480px) {
     html {
-        margin: auto 10%;              /* vertical | horizontal */
+        margin: auto 5%;              /* vertical | horizontal */
     }
 }
