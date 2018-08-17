@@ -127,6 +127,14 @@
             /* loop through each course */
             foreach($obj->courses as $course)
             {
+                $isOnline = false;
+
+                /* handle Online courses */
+                if(substr($course->section, -2, 1) == "9")
+                {
+                    $isOnline = true;
+                }
+
                 /* PARSE 'building' *******************************************/
                 $building = strtoupper(trim($_GET['building']));
                 $buildingMatch = false;
@@ -218,13 +226,26 @@
                 }
 
                 $listing .= "<td width='15%'>";
-                $listing .= $course->meetingTimes[$index]->days . " " . $course->meetingTimes[$index]->startTime . "</td> ";
+                $listing .= $course->meetingTimes[$index]->days . " " . $course->meetingTimes[$index]->startTime;
+
+
+                /* handle Online courses */
+                if($isOnline)
+                {
+                    $listing .= "(Online)";
+                }
+                else
+                {
+                    /* no action needed */
+                }
+
+                $listing .= "</td> ";
 
                 /* STORE: 'building room' *************************************/
                 $listing .= "<td width='10%'>";
 
                 /* handle Online courses */
-                if(substr($course->section, -2, 1) == "9")
+                if($isOnline)
                 {
                     $listing .= "(Online)";
                 }
