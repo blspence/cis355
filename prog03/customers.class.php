@@ -327,19 +327,19 @@ class Customers
 
         if(empty($this->name))
         {
-            $nameError = 'Please enter Name';
+            $this->nameError = 'Please enter Name';
             $valid = false;
         }
 
         if(empty($this->email))
         {
-            $emailError = 'Please enter Email Address';
+            $this->emailError = 'Please enter Email Address';
             $valid = false;
         }
 
         if(empty($this->mobile))
         {
-            $mobileError = 'Please enter Mobile Number';
+            $this->mobileError = 'Please enter Mobile Number';
             $valid = false;
         }
 
