@@ -113,26 +113,26 @@ function printForm()
  ******************************************************************************/
 function printCourses($prefix, $courseNumber, $instructor)
 {
-    /* call printListing() for each semester using all parameters */
+    /* call getListing() for each semester using all parameters */
     $term = "18/SP";
     $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Spring</h3>";
-    printListing($string);
+    getListing($string);
 
     $term = "18/SU";
     $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Summer</h3>";
-    printListing($string);
+    getListing($string);
 
     $term = "18/FA";
     $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2018 - Fall</h3>";
-    printListing($string);
+    getListing($string);
 
     $term = "19/WI";
     $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
     echo "<h3>2019 - Winter</h3>";
-    printListing($string);
+    getListing($string);
 }
 
 
@@ -141,27 +141,30 @@ function printCourses($prefix, $courseNumber, $instructor)
  ******************************************************************************/
 function printSemester($term)
 {
-    /* note: printSemester() is only called when user has not entered anything in entry form */
+    /* note: printSemester() is only called when user hasn't used entry form */
 
     /* print all CIS courses for semester */
     $string = $GLOBALS['api_base_addr'] . "CIS&term=$term";
-    printListing($string);
+    getListing($string);
 
     /* print all CS courses for semester */
     $string = $GLOBALS['api_base_addr'] . "CS&term=$term";
-    printListing($string);
+    getListing($string);
 
     /* print all CSIS courses for semester */
     $string = $GLOBALS['api_base_addr'] . "CSIS&term=$term";
-    printListing($string);
+    getListing($string);
 }
 
 
 /*******************************************************************************
- * FUNCTION printListing: print an html table for one single query of the api
+ * FUNCTION getListing: print an html table for a single query of the api
  ******************************************************************************/
-function printListing($apiCall)
+function getListing($apiCall)
 {
+    /* init listing string */
+    $listing = "";
+
     /* get JSON object */
     $json = curl_get_contents($apiCall);
 
@@ -172,8 +175,10 @@ function printListing($apiCall)
     { /* can show obj with var_dump($obj); */
         echo "<table border='3' width='100%'>";
 
-        foreach ($obj->courses as $course)
+        /* loop through each course */
+        foreach($obj->courses as $course)
         {
+            /* PARSE 'building' ***********************************************/
             $building = strtoupper(trim($_GET['building']));
             $buildingMatch = false;
             $thisBuilding0 = trim($course->meetingTimes[0]->building);
@@ -194,6 +199,7 @@ function printListing($apiCall)
                 continue;
             }
 
+            /* PARSE: 'room' **************************************************/
             $room = strtoupper(trim($_GET['room']));
             $roomMatch = false;
             $thisroom0 = trim($course->meetingTimes[0]->room);
@@ -214,81 +220,93 @@ function printListing($apiCall)
                 continue;
             }
 
+            /* PARSE: 'username' for row color ********************************/
             /* different <tr bgcolor=...> for each professor */
-            switch ($course->meetingTimes[0]->instructor)
+            switch($course->instructors[0]->username)
             {
                 case "james": /* 1 */
-                    $printline = "<tr bgcolor='#B19CD9'>";  /* pastel purple */
+                    $listing .= "<tr bgcolor='#B19CD9'>";  /* pastel purple */
                     break;
                 case "icho": /* 2 */
-                    $printline = "<tr bgcolor='lightblue'>";  /* light blue */
+                    $listing .= "<tr bgcolor='lightblue'>";  /* light blue */
                     break;
                 case "krahman": /* 3 */
-                    $printline = "<tr bgcolor='pink'>";  /* pink */
+                    $listing .= "<tr bgcolor='pink'>";  /* pink */
                     break;
                 case "gpcorser": /* 4 */
-                    $printline = "<tr bgcolor='yellow'>";   /* yellow */
+                    $listing .= "<tr bgcolor='yellow'>";   /* yellow */
                     break;
                 case "pdharam": /* 5 */
-                    $printline = "<tr bgcolor='#77DD77'>";  /* pastel green (light green) */
+                    $listing .= "<tr bgcolor='#77DD77'>";  /* pastel green (light green) */
                     break;
                 case "amulahuw": /* 6 */
-                    $printline = "<tr bgcolor='#FFB347'>";  /* pastel orange */
+                    $listing .= "<tr bgcolor='#FFB347'>";  /* pastel orange */
                     break;
                 default:
-                    $printline = "<tr>"; /* no background color */
+                    $listing .= "<tr>"; /* no background color */
             }
 
-            $printline .= "<td width='13%'>" . $course->prefix . " " . $course->courseNumber . "*" . $course->section . "</td>";
-            $printline .= "<td width='40%'>" . $course->title . " (" . $course->lineNumber . ")" . "</td>";
-            $printline .= "<td width='12%'>Av:" . $course->seatsAvailable . " (" . $course->capacity . ")" . "</td>";
+            /* STORE: 'prefix courseNumber*section' ***************************/
+            $listing .= "<td width='13%'>" . $course->prefix . " " . $course->courseNumber . "*" . $course->section . "</td>";
 
-            /* print day and time column */
+            /* STORE: 'title (lineNumber)'  ***********************************/
+            $listing .= "<td width='40%'>" . $course->title . " (" . $course->lineNumber . ")" . "</td>";
+
+            /* STORE: 'seatsAvailable'  ***************************************/
+            $listing .= "<td width='12%'>Av: " . $course->seatsAvailable . " / " . $course->capacity . "</td>";
+
+            /* STORE: 'days startTime' ****************************************/
             if($course->meetingTimes[0]->days)
             {
-                $printline .= "<td width='15%'>" . $course->meetingTimes[0]->days . " " . $course->meetingTimes[0]->startTime;
-                $printline .= "</td>";
+                $listing .= "<td width='15%'>" . $course->meetingTimes[0]->days . " " . $course->meetingTimes[0]->startTime;
+                $listing .= "</td>";
             }
             else
             {
-                $printline .= "<td width='15%'>";
-                $printline .= $course->meetingTimes[1]->days . " " . $course->meetingTimes[1]->startTime . "</td> ";
+                $listing .= "<td width='15%'>";
+                $listing .= $course->meetingTimes[1]->days . " " . $course->meetingTimes[1]->startTime . "</td> ";
             }
 
-            /* print building and room column */
+            /* STORE: 'building room' *****************************************/
+            $listing .= "<td width='10%'>";
 
-            $printline .= "<td width='10%'>";
-
+            /* handle Online courses */
             if(substr($course->section, -2, 1) == "9")
             {
-                $printline .= "(Online)";
+                $listing .= "(Online)";
             }
             else
             {
-                /* todo: if diff behavior change this - refer to orig templ */
+                /* no action needed */
             }
 
+            /* determine whether to use meetingTimes[0] or meetingTimes[1] */
+            $index = 0;
             if(substr($course->section, -2, 1) == "7")
             {
-                $printline .= $course->meetingTimes[1]->building . " " . $course->meetingTimes[1]->room;
+                $index = 1;
             }
             else
             {
-                $printline .= $course->meetingTimes[0]->building . " " . $course->meetingTimes[0]->room;
+                /* no action needed */
             }
 
-            $printline .= "</td>";
+            $listing .= $course->meetingTimes[$index]->building . " " . $course->meetingTimes[$index]->room;
 
-            /* print instructor column */
+            $listing .= "</td>";
 
-            $printline .= "<td width='10%'>" . $course->meetingTimes[0]->instructor . "</td>";
-            $printline .= "</tr>";
-            echo $printline;
-        } /* end foreach */
+            /* STORE: 'instructors name' **************************************/
+            $listing .= "<td width='10%'>" . $course->instructors[0]->name . "</td>";
+            $listing .= "</tr>";
+        } /* END: foreach */
 
-        echo "</table>";
-        echo "<br/>";
-    } /* end if(!($obj->courses == null)) */
+        $listing .= "</table>";
+		$listing .= "<br />";
+
+        /* print the listing */
+        echo $listing;
+
+    } /* END: if(!($obj->courses == null)) */
     else
     {
         echo "No courses fit search criteria";
@@ -298,12 +316,10 @@ function printListing($apiCall)
 
 
 /*******************************************************************************
- * FUNCTION curl_get_contents: read file into a string
+ * FUNCTION curl_get_contents: reads file into string; alt. to file_get_contents
  ******************************************************************************/
 function curl_get_contents($url)
 {
-    /* alternative to file_get_contents */
-
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_HEADER, 0);
