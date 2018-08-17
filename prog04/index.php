@@ -51,31 +51,6 @@
 
 
     /***************************************************************************
-     * FUNCTION printForm: display the entry form for next search
-     **************************************************************************/
-    function printForm()
-    {
-        echo '<br />';
-        echo '<br />';
-        echo '<h2>Course Lookup</h2>';
-
-        /* print user entry form */
-        echo "<form action='courses.php'>";
-        echo "Course Prefix (Department)<br/>";
-        echo "<input type='text' placeholder='CS' name='prefix'><br/>";
-        echo "Course Number<br/>";
-        echo "<input type='text' placeholder='116' name='courseNumber'><br/>";
-        echo "Instructor<br/>";
-        echo "<input type='text' placeholder='gpcorser' name='instructor'><br/>";
-        /* echo "Building/Room<br/>"; */
-        /* echo "<input type='text' name='building'>"; */
-        /* echo "<input type='text' name='room'><br/>"; */
-        echo "<input type='submit' value='Submit'>";
-        echo "</form>";
-    }
-
-
-    /***************************************************************************
      * FUNCTION printCourses: print all courses for a given filter
      **************************************************************************/
     function printCourses($prefix, $courseNumber, $instructor)
@@ -335,26 +310,35 @@
     <div class="container">
 
         <!-- GitHub Button ************************************************* -->
-        <div class="btn-toolbar">
-            <div class="btn-group" role="group">
-                <a href="https://github.com/blspence/cis355/tree/master/prog04"
-                   target="_blank"
-                   class="btn btn-primary"
-                   role="button"
-                   aria-pressed="false">
-                       Go to GitHub
-                </a>
-            </div>
-            <div class="btn-group" role="group">
-                <a href="coursesearch.php"
-                   target="_blank"
-                   class="btn btn-primary btn-success"
-                   role="button"
-                   aria-pressed="false">
-                       Search
-                </a>
-            </div>
+        <div class="btn-group" role="group">
+            <a href="https://github.com/blspence/cis355/tree/master/prog04"
+               target="_blank"
+               class="btn btn-primary"
+               role="button"
+               aria-pressed="false">
+                   Go to GitHub
+            </a>
         </div>
+        <!-- Course Lookup ************************************************* -->
+        <div class="row">
+            <h2>Course Lookup</h2>
+            <form action='index.php'>
+                Course Prefix (Department): <br/>
+                <input type='text' placeholder='CS' name='prefix'><br/>
+
+                Course Number: <br/>
+                <input type='text' placeholder='116' name='courseNumber'><br/>
+
+                Instructor: <br/>
+                <input type='text' placeholder='gpcorser' name='instructor'><br/>
+
+                <!-- Building/Room" -->
+                <!-- <input type='text' name='building'> -->
+                <!-- <input type='text' name='room'><br/> -->
+                <input type='submit' value='Submit'>
+            </form>
+        </div>
+        <!-- main() call *************************************************** -->
         <div class="row">
             <?php main();?>
         </div> <!-- END: <div class="row"> -->
