@@ -15,43 +15,38 @@ class Customers
 
     function form_create()
     {
-        echo "
-        <html>
-            <head>
-                <title>Create a $this->title</title>
-                    ";
-        echo "
-                <meta charset='UTF-8'>
-                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    ";
-        echo "
-            </head>
+        echo '<html lang="en">                                              ';
+        echo '<head>                                                        ';
+        echo '    <meta charset="utf-8">                                    ';
+        echo '    <link href="../../css/bootstrap.min.css" rel="stylesheet">';
+        echo '    <link href="../../css/cis355.css" rel="stylesheet">       ';
+        echo '</head>                                                       ';
+        echo '                                                              ';
+        echo '<body>                                                        ';
+        echo '    <div class="container">                                   ';
+        echo '        <div class="span10 offset1">                          ';
+        echo '            <div class="row">                                 ';
+        echo '                <h3>Create a Customer</h3>                    ';
+        echo '            </div>                                            ';
+        echo '            <form class="form-horizontal"                      ';
+        echo '                  action="index.php?fnc=id_DB_MOD_CREATE"     ';
+        echo '                  method="post">                              ';
 
-            <body>
-                <div class='container'>
-
-                    <div class='span10 offset1'>
-                        <p class='row'>
-                            <h3>Create a $this->title</h3>
-                        </p>
-                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_CREATE' method='post'>
-                    ";
         $this->control_group("name", $this->nameError, $this->name);
         $this->control_group("email", $this->emailError, $this->email);
         $this->control_group("mobile", $this->mobileError, $this->mobile);
-        echo "
-                            <div class='form-actions'>
-                                <button type='submit' class='btn btn-success'>Create</button>
-                                <a class='btn' href='index.php'>Back</a>
-                            </div>
-                        </form>
-                    </div>
 
-                </div> <!-- /container -->
-            </body>
-        </html>
-                    ";
+        echo '                <div class="form-actions">                    ';
+        echo '                  <button type="submit"                       ';
+        echo '                          class="btn btn-success">            ';
+        echo '                              Create</button>                 ';
+        echo '                    <a class="btn" href="index.php">Back</a>  ';
+        echo '                </div>                                        ';
+        echo '            </form>                                            ';
+        echo '        </div>                                                ';
+        echo '    </div>                                                    ';
+        echo '</body>                                                       ';
+        echo '</html>                                                       ';
     }
 
     function form_delete()
@@ -278,8 +273,8 @@ class Customers
 
     function db_mod_create()
     {
-        /* validate input */
         $valid = true;
+
         if(empty($this->name))
         {
             $this->nameError = 'Please enter Name';
@@ -289,11 +284,6 @@ class Customers
         if(empty($this->email))
         {
             $this->emailError = 'Please enter Email Address';
-            $valid = false;
-        }
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-        {
-            $this->emailError = 'Please enter a valid Email Address';
             $valid = false;
         }
 
