@@ -15,21 +15,6 @@
 
 
     /***************************************************************************
-     * GLOBAL VARIABLES
-     **************************************************************************/
-    /* $GLOBALS['api_base_addr'] */
-    $api_base_addr = "https://api.svsu.edu/courses?prefix=";
-
-    /* custom 'struct' type */
-    class listingType
-    {
-        public $lineNumber;
-        public $listingStr;
-        public $days;
-    }
-
-
-    /***************************************************************************
      * FUNCTION DEFINITIONS
      **************************************************************************/
 
@@ -41,45 +26,62 @@
 
         $cust = new Customers();
 
-        if(isset($_POST["name"])) $cust->name = $_POST["name"];
-        if(isset($_POST["email"])) $cust->email = $_POST["email"];
-        if(isset($_POST["mobile"])) $cust->mobile = $_POST["mobile"];
-
-        if(isset($_GET["fun"])) $fun = $_GET["fun"];
-        else $fun = 0;
-
-        switch ($fun)
+        if(isset($_POST["name"]))
         {
-            case 1: // create
-                $cust->create_record();
+            $cust->name = $_POST["name"];
+        }
+
+        if(isset($_POST["email"]))
+        {
+            $cust->email = $_POST["email"];
+        }
+
+        if(isset($_POST["mobile"]))
+        {
+            $cust->mobile = $_POST["mobile"];
+        }
+
+        if(isset($_GET["fnc"]))
+        {
+            $fnc = $_GET["fnc"];
+        }
+        else
+        {
+            $fnc = enumActions::id_LIST_RECORDS;
+        }
+
+        switch($fnc)
+        {
+            case enumActions::id_FORM_CREATE:
+                $cust->form_create();
                 break;
-            case 2: // read
-                $cust->read_record();
+            case enumActions::id_FORM_READ:
+                $cust->form_read();
                 break;
-            case 3: // update
-                $cust->update_record();
+            case enumActions::id_FORM_UPDATE:
+                $cust->form_update();
                 break;
-            case 4: // delete
-                $cust->delete_record();
+            case enumActions::id_FORM_DELETE:
+                $cust->form_delete();
                 break;
-            case 11: // insert database record from create_record()
-                $cust->insert_record();
+            case enumActions::id_DB_MOD_CREATE:
+                $cust->db_mod_create();
                 break;
-            case 33: // update database record from update_record()
-                $cust->insert_update_record();
+            case enumActions::id_DB_MOD_UPDATE:
+                $cust->db_mod_update();
                 break;
-            case 44: // delete database record from delete_record()
-                $cust->delete_update_record();
+            case enumActions::id_DB_MOD_DELETE:
+                $cust->db_mod_delete();
                 break;
-            case 0: // list
-            default: // list
+            case enumActions::id_LIST_RECORDS:
+            default:
                 $cust->list_records();
         }
     }
 
 
     /***************************************************************************
-     * FUNCTION todo: TODO
+     * FUNCTION todo: TODO (fnc tmpl)
      **************************************************************************/
     function todo($param)
     {
@@ -92,7 +94,7 @@
 
 <head>
     <!-- TAB-TITLE/FAVICON ************************************************* -->
-    <title>Customers - File Upload</title>
+    <title>Prog03</title>
     <link rel="icon" href="../img/cardinal_logo.png" type="image/png" />
 
     <!-- METADATA ********************************************************** -->
@@ -128,9 +130,8 @@
         <!-- Course Lookup ************************************************* -->
         <div class="row">
             <div class=".col-md-12">
-                <h1> <!--style="color:white;"> -->
-                    PHP CRUD Tables</strong>
-                </h1>
+                <br/>
+                <h1>Table: 'Customers' in 'blspence' Database</h1>
             </div>
         </div>
         <!-- main() call *************************************************** -->
