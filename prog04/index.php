@@ -29,21 +29,29 @@
         echo '<h2 align="center">';
         echo $_GET['prefix'] ? ' - Prefix: ' . strtoupper($_GET['prefix']) : "";
         echo $_GET['courseNumber'] ? ' - Course Number: ' . $_GET['courseNumber'] : "";
-        echo $_GET['instructor'] ? ' - Instructor: ' . strtoupper($_GET['instructor']) : "";
+        echo $_GET['instructor'] ? ' - Instructor: ' . strtolower($_GET['instructor']) : "";
         echo '</h2>';
 
-        /* if user entered something in a search box, then call printCourses() to filter */
-        if(($_GET['prefix'] != "") || ($_GET['courseNumber'] != "") || ($_GET['instructor'] != ""))
+        /* if searching, call printCourses() to filter */
+        if(($_GET['prefix'] != "") ||
+           ($_GET['courseNumber'] != "") ||
+           ($_GET['instructor'] != "") ||
+           ($_GET['days'] != ""))
         {
-            printCourses($_GET['prefix'], $_GET['courseNumber'], $_GET['instructor']);
+            printCourses($_GET['prefix'],
+                         $_GET['courseNumber'],
+                         $_GET['instructor'],
+                         $_GET['days']);
         }
-        /* otherwise call printSemester() for all courses for each semester */
+        /* otherwise, call printSemester() */
         else
         {
             echo "<h3>Summer</h3>";
             printSemester("18/SU");
+
             echo "<h3>Fall</h3>";
             printSemester("18/FA");
+
             echo "<h3>Winter</h3>";
             printSemester("19/WI");
         }
@@ -53,10 +61,10 @@
     /***************************************************************************
      * FUNCTION printCourses: print all courses for a given filter
      **************************************************************************/
-    function printCourses($prefix, $courseNumber, $instructor)
+    function printCourses($prefix, $courseNumber, $instructor, $days)
     {
         $stringPrefix = "$prefix&courseNumber=$courseNumber";
-        $stringPrefix .= "&instructor=$instructor";
+        $stringPrefix .= "&instructor=$instructor&days=$days";
 
         /* call getListing() for each semester using all parameters */
         $term = "18/SU";
@@ -330,15 +338,16 @@
                 Instructor: <br/>
                 <input type='text' placeholder='gpcorser' name='instructor'><br/>
 
-                <!-- Building/Room" -->
-                <!-- <input type='text' name='building'> -->
-                <!-- <input type='text' name='room'><br/> -->
+                Days: <br/>
+                <input type='text' placeholder='MW' name='days'><br/>
+
                 <input type='submit' value='Submit'>
             </form>
         </div>
         <!-- main() call *************************************************** -->
         <div class="row">
             <?php main();?>
+            <br/><br/>
         </div> <!-- END: <div class="row"> -->
     </div> <!-- END: <div class="container"> -->
 </body>
