@@ -1,20 +1,21 @@
 <?php
 
-class Customers {
-    
+class Customers
+{
     public $id;
-    
+
     public $name;
     public $email;
     public $mobile;
-    
+
     private $nameError = null;
     private $emailError = null;
     private $mobileError = null;
-    
+
     private $title = "Customer";
-    
-    function create_record() { // display create form
+
+    function create_record() // display create form
+    {
         echo "
         <html>
             <head>
@@ -24,7 +25,7 @@ class Customers {
                 <meta charset='UTF-8'>
                 <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
                 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    "; 
+                    ";
         echo "
             </head>
 
@@ -35,12 +36,12 @@ class Customers {
                         <p class='row'>
                             <h3>Create a $this->title</h3>
                         </p>
-                        <form class='form-horizontal' action='customer.php?fun=11' method='post'>                        
+                        <form class='form-horizontal' action='customer.php?fun=11' method='post'>
                     ";
         $this->control_group("name", $this->nameError, $this->name);
         $this->control_group("email", $this->emailError, $this->email);
         $this->control_group("mobile", $this->mobileError, $this->mobile);
-        echo " 
+        echo "
                             <div class='form-actions'>
                                 <button type='submit' class='btn btn-success'>Create</button>
                                 <a class='btn' href='customer.php'>Back</a>
@@ -53,7 +54,122 @@ class Customers {
         </html>
                     ";
     }
-    
+
+    function delete_record()
+    {
+        echo "
+        <html>
+            <head>
+                <title>Delete a $this->title</title>
+                    ";
+        echo "
+                <meta charset='UTF-8'>
+                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
+                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
+                    ";
+        echo "
+            </head>
+
+            <body>
+                <div class='container'>
+
+                    <div class='span10 offset1'>
+                        <p class='row'>
+                            <h3>Delete a $this->title</h3>
+                        </p>
+                        <form class='form-horizontal' action='customer.php?fun=44' method='post'>
+                            Are you sure you want to delete?
+                            <div class='form-actions'>
+                                <button type='submit' class='btn btn-success'>Yes</button>
+                                <a class='btn' href='customer.php'>No</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div> <!-- /container -->
+            </body>
+        </html>
+                    ";
+    }
+
+    function read_record()
+    {
+        echo "
+        <html>
+            <head>
+                <title>Read a $this->title</title>
+                    ";
+        echo "
+                <meta charset='UTF-8'>
+                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
+                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
+                    ";
+        echo "
+            </head>
+
+            <body>
+                <div class='container'>
+
+                    <div class='span10 offset1'>
+                        <p class='row'>
+                            <h3>Read a $this->title</h3>
+                        </p>
+                        <form class='form-horizontal' action='customer.php?fun=44' method='post'>
+                            Are you sure you want to delete?
+                            <div class='form-actions'>
+                                <button type='submit' class='btn btn-success'>Yes</button>
+                                <a class='btn' href='customer.php'>No</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div> <!-- /container -->
+            </body>
+        </html>
+                    ";
+    }
+
+    function update_record()
+    {
+        echo "
+        <html>
+            <head>
+                <title>Update a $this->title</title>
+                    ";
+        echo "
+                <meta charset='UTF-8'>
+                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
+                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
+                    ";
+        echo "
+            </head>
+
+            <body>
+                <div class='container'>
+
+                    <div class='span10 offset1'>
+                        <p class='row'>
+                            <h3>Update a $this->title</h3>
+                        </p>
+                        <form class='form-horizontal' action='customer.php?fun=33' method='post'>
+                    ";
+        $this->control_group("name", $this->nameError, $this->name);
+        $this->control_group("email", $this->emailError, $this->email);
+        $this->control_group("mobile", $this->mobileError, $this->mobile);
+        echo "
+                            <div class='form-actions'>
+                                <button type='submit' class='btn btn-success'>Update</button>
+                                <a class='btn' href='customer.php'>Back</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div> <!-- /container -->
+            </body>
+        </html>
+                    ";
+    }
+
     function list_records() {
         echo "
         <html>
@@ -64,7 +180,7 @@ class Customers {
                 <meta charset='UTF-8'>
                 <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
                 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    ";  
+                    ";
         echo "
             </head>
             <body>
@@ -95,15 +211,15 @@ class Customers {
             echo "<td>". $row["email"] . "</td>";
             echo "<td>". $row["mobile"] . "</td>";
             echo "<td width=250>";
-            echo "<a class='btn' href='read.php?id=".$row["id"]."'>Read</a>";
+            echo "<a class='btn' href='customer.php?fun=2?id=".$row["id"]."'>Read</a>";
             echo "&nbsp;";
-            echo "<a class='btn btn-success' href='update.php?id=".$row["id"]."'>Update</a>";
+            echo "<a class='btn btn-success' href='customer.php?fun=33?id=".$row["id"]."'>Update</a>";
             echo "&nbsp;";
-            echo "<a class='btn btn-danger' href='delete.php?id=".$row["id"]."'>Delete</a>";
+            echo "<a class='btn btn-danger' href='customer.php?fun=44?id=".$row["id"]."'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
-        Database::disconnect();        
+        Database::disconnect();
         echo "
                             </tbody>
                         </table>
@@ -113,11 +229,11 @@ class Customers {
             </body>
 
         </html>
-                    ";  
-    } // end list_records()
-    
+                    ";
+    }
 
-    function control_group ($label, $labelError, $val) {
+    function control_group ($label, $labelError, $val)
+    {
         echo "<div class='control-group";
         echo !empty($labelError) ? 'error' : '';
         echo "'>";
@@ -134,7 +250,7 @@ class Customers {
         echo "</div>";
         echo "</div>";
     }
-    
+
     function insert_record () {
         // validate input
         $valid = true;
@@ -146,22 +262,23 @@ class Customers {
         if (empty($this->email)) {
             $this->emailError = 'Please enter Email Address';
             $valid = false;
-        } 
+        }
         /*
         else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-        
+
             $this->emailError = 'Please enter a valid Email Address';
             $valid = false;
         }
          */
 
-        if (empty($this->mobile)) {
+        if(empty($this->mobile))
+        {
             $this->mobileError = 'Please enter Mobile Number';
             $valid = false;
         }
 
-        // insert data
-        if ($valid) {
+        if($valid)
+        {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "INSERT INTO customers (name,email,mobile) values(?, ?, ?)";
@@ -170,9 +287,98 @@ class Customers {
             Database::disconnect();
             header("Location: customer.php");
         }
-        else {
+        else
+        {
             $this->create_record();
         }
     }
-    
-} // end class Customers
+
+    function insert_update_record () {
+        // validate input
+        $valid = true;
+        if (empty($this->name)) {
+            $this->nameError = 'Please enter Name';
+            $valid = false;
+        }
+
+        if (empty($this->email)) {
+            $this->emailError = 'Please enter Email Address';
+            $valid = false;
+        }
+        /*
+        else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+
+            $this->emailError = 'Please enter a valid Email Address';
+            $valid = false;
+        }
+         */
+
+        if(empty($this->mobile))
+        {
+            $this->mobileError = 'Please enter Mobile Number';
+            $valid = false;
+        }
+
+        if($valid)
+        {
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "UPDATE customers  set name = ?, email = ?, mobile =? WHERE id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($this->name,$this->email,$this->mobile, $this->id));
+            Database::disconnect();
+            header("Location: customer.php");
+        }
+        else
+        {
+            $this->update_record();
+        }
+    }
+
+    function delete_update_record () {
+        $id = 0;
+
+        if(!empty($_GET['id']))
+        {
+            $id = $_REQUEST['id'];
+        }
+
+        if(!empty($_POST))
+        {
+            /* track post values */
+            $id = $_POST['id'];
+
+            /* delete data */
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "DELETE FROM customers  WHERE id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($id));
+            Database::disconnect();
+            header("Location: customers.php");
+        }
+    }
+
+    function read_helper ($id) {
+        $id = null;
+        if(!empty($_GET['id']))
+        {
+            $id = $_REQUEST['id'];
+        }
+
+        if(null == $id)
+        {
+            header("Location: customers.php");
+        }
+        else
+        {
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM customers where id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($id));
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            Database::disconnect();
+        }
+    }
+}
