@@ -17,6 +17,14 @@
     /* $GLOBALS['api_base_addr'] */
     $api_base_addr = "https://api.svsu.edu/courses?prefix=";
 
+    /* custom 'struct' type */
+    class listingType
+    {
+        public $lineNumber;
+        public $listingStr;
+        public $days;
+    }
+
 
     /***************************************************************************
      * FUNCTION DEFINITIONS
@@ -66,21 +74,21 @@
         $stringPrefix = "$prefix&courseNumber=$courseNumber";
         $stringPrefix .= "&instructor=$instructor&days=$days";
 
-        /* call getListing() for each semester using all parameters */
+        /* call getListings() for each semester using all parameters */
         $term = "18/SU";
         $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2018 - Summer</h3>";
-        getListing($string);
+        getListings($string);
 
         $term = "18/FA";
         $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2018 - Fall</h3>";
-        getListing($string);
+        getListings($string);
 
         $term = "19/WI";
         $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2019 - Winter</h3>";
-        getListing($string);
+        getListings($string);
     }
 
 
@@ -94,25 +102,29 @@
 
         /* print all CIS courses for semester */
         $string = $GLOBALS['api_base_addr'] . "CIS&term=$term";
-        getListing($string);
+        getListings($string);
 
         /* print all CS courses for semester */
         $string = $GLOBALS['api_base_addr'] . "CS&term=$term";
-        getListing($string);
+        getListings($string);
 
         /* print all CSIS courses for semester */
         $string = $GLOBALS['api_base_addr'] . "CSIS&term=$term";
-        getListing($string);
+        getListings($string);
     }
 
 
     /***************************************************************************
-     * FUNCTION getListing: print an html table for a single query of the api
+     * FUNCTION getListings: print an html table for a single query of the api
      **************************************************************************/
-    function getListing($apiCall)
+    function getListings($apiCall)
     {
-        /* init listing string */
+        /* init listing & days strings */
         $listing = "";
+        $days = "";
+
+        /* listing arr */
+        $listingArr = [];
 
         /* get JSON object */
         $json = curl_get_contents($apiCall);
@@ -226,8 +238,10 @@
                 }
 
                 $listing .= "<td width='15%'>";
-                $listing .= $course->meetingTimes[$index]->days . " " . $course->meetingTimes[$index]->startTime;
 
+                $days = $course->meetingTimes[$index]->days;
+
+                $listing .= $days . " " . $course->meetingTimes[$index]->startTime;
 
                 /* handle Online courses */
                 if($isOnline)
@@ -272,13 +286,19 @@
                 /* STORE: 'instructors name' **********************************/
                 $listing .= "<td width='15%'>" . $course->instructors[0]->name . "</td>";
                 $listing .= "</tr>";
+
+                /* create listingObj*/
+                $listingObj = new listingType();
+                $lineNumber->lineNumber = $course->lineNumber;
+                $listingObj->listingStr = $listing;
+                $listingObj->days = $days;
+
+                /* push listingObj to listingArr */
+                array_push($listingArr, $listingObj);
+
             } /* END: foreach */
 
-            $listing .= "</table>";
-            $listing .= "<br />";
-
-            /* print the listing */
-            echo $listing;
+            printListings($listingArr);
 
         } /* END: if(!($obj->courses == null)) */
         else
@@ -286,6 +306,23 @@
             echo "No courses fit search criteria";
             echo "<br />";
         }
+    }
+
+    /***************************************************************************
+     * FUNCTION printListings: prints given listings, sorted by day of week;
+     *                         takes an array of listingType objects
+     **************************************************************************/
+    function printListings($listingArr)
+    {
+        /* print array */
+        foreach($listingArr as &$listingObj)
+        {
+            echo $listingObj->listingStr;
+        }
+
+        /* remaining html */
+        $listing .= "</table>";
+        $listing .= "<br />";
     }
 
 
