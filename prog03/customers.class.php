@@ -93,39 +93,55 @@ class Customers
 
     function form_read()
     {
-        echo "
-        <html>
-            <head>
-                <title>Read a $this->title</title>
-                    ";
-        echo "
-                <meta charset='UTF-8'>
-                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    ";
-        echo "
-            </head>
+        $id = null;
 
-            <body>
-                <div class='container'>
+        if(!empty($_GET['id']))
+        {
+            $id = $_REQUEST['id'];
+        }
 
-                    <div class='span10 offset1'>
-                        <p class='row'>
-                            <h3>Read a $this->title</h3>
-                        </p>
-                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_DELETE' method='post'>
-                            Are you sure you want to delete?
-                            <div class='form-actions'>
-                                <button type='submit' class='btn btn-success'>Yes</button>
-                                <a class='btn' href='index.php'>No</a>
-                            </div>
-                        </form>
-                    </div>
+        if(null == $id)
+        {
+            header("Location: index.php");
+        }
+        else
+        {
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM customers where id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($id));
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            Database::disconnect();
+        };
 
-                </div> <!-- /container -->
-            </body>
-        </html>
-                    ";
+        echo '<html lang="en">                                              ';
+        echo '<head>                                                        ';
+        echo '    <meta charset="utf-8">                                    ';
+        echo '    <link href="../../css/bootstrap.min.css" rel="stylesheet">';
+        echo '    <link href="../../css/cis355.css" rel="stylesheet">       ';
+        echo '</head>                                                       ';
+        echo '                                                              ';
+        echo '<body>                                                        ';
+        echo '    <div class="container">                                   ';
+        echo '        <div class="span10 offset1">                          ';
+        echo '            <div class="row">                                 ';
+        echo '                <h3>Read a Customer</h3>                      ';
+        echo '            </div>                                            ';
+        echo '            <div class="form-horizontal">                     ';
+
+        $this->control_group_read("Name", $data["name"]);
+        $this->control_group_read("Email Address", $data["mobile"]);
+        $this->control_group_read("Mobile Number", $data["email"]);
+
+        echo '                <div class="form-actions">                    ';
+        echo '                    <a class="btn" href="index.php">Back</a>  ';
+        echo '                </div>                                        ';
+        echo '            </div>                                            ';
+        echo '        </div>                                                ';
+        echo '    </div>                                                    ';
+        echo '</body>                                                       ';
+        echo '</html>                                                       ';
     }
 
     function form_update()
@@ -226,6 +242,18 @@ class Customers
             </body>
         </html>
         ";
+    }
+
+    function control_group_read($label, $val)
+    {
+        echo "<div class='control-group'>";
+        echo "    <label class='control-label'>$label</label>";
+        echo "    <div class='controls'>";
+        echo "        <label class='checkbox'>";
+        echo "            $val";
+        echo "        </label>";
+        echo "    </div>";
+        echo "</div>";
     }
 
     function control_group($label, $labelError, $val)
@@ -356,30 +384,6 @@ class Customers
             $q->execute(array($id));
             Database::disconnect();
             header("Location: customers.php");
-        }
-    }
-
-    function read_helper($id)
-    {
-        $id = null;
-        if(!empty($_GET['id']))
-        {
-            $id = $_REQUEST['id'];
-        }
-
-        if(null == $id)
-        {
-            header("Location: customers.php");
-        }
-        else
-        {
-            $pdo = Database::connect();
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM customers where id = ?";
-            $q = $pdo->prepare($sql);
-            $q->execute(array($id));
-            $data = $q->fetch(PDO::FETCH_ASSOC);
-            Database::disconnect();
         }
     }
 }
