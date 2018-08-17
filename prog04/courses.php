@@ -1,17 +1,29 @@
 <?php
 
-/* global variables */
-$api_base_addr = "https://api.svsu.edu/courses?prefix=";
+/*******************************************************************************
+ * NetBeans ERROR SUPRESSION (TODO: remove if not needed)
+ ******************************************************************************/
 
-/* suppress notices for NetBeans (TODO: remove if not needed) */
 ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
-/* call main */
+
+/*******************************************************************************
+ * GLOBAL VARIABLES
+ ******************************************************************************/
+
+/* $GLOBALS['api_base_addr'] */
+$api_base_addr = "https://api.svsu.edu/courses?prefix=";
+
+
+/*******************************************************************************
+ * INVOKE MAIN
+ ******************************************************************************/
 main();
 
-#-----------------------------------------------------------------------------
-# FUNCTIONS
-#-----------------------------------------------------------------------------
+
+/*******************************************************************************
+ * FUNCTION DEFINITIONS
+ ******************************************************************************/
 
 function main()
 {
@@ -70,9 +82,10 @@ function main()
     echo '</html>';
 }
 
-#-----------------------------------------------------------------------------
-/* display the entry form for next search */
 
+/*******************************************************************************
+ * FUNCTION printForm: display the entry form for next search
+ ******************************************************************************/
 function printForm()
 {
     echo '<br />';
@@ -94,9 +107,10 @@ function printForm()
     echo "</form>";
 }
 
-#-----------------------------------------------------------------------------
-/* print all courses for a given filter */
 
+/*******************************************************************************
+ * FUNCTION printCourses: print all courses for a given filter
+ ******************************************************************************/
 function printCourses($prefix, $courseNumber, $instructor)
 {
     /* call printListing() for each semester using all parameters */
@@ -121,9 +135,10 @@ function printCourses($prefix, $courseNumber, $instructor)
     printListing($string);
 }
 
-#-----------------------------------------------------------------------------
-/* print all CS/CIS/CSIS courses for a given semester */
 
+/*******************************************************************************
+ * FUNCTION printSemester: print all CS/CIS/CSIS courses for a given semester
+ ******************************************************************************/
 function printSemester($term)
 {
     /* note: printSemester() is only called when user has not entered anything in entry form */
@@ -141,9 +156,10 @@ function printSemester($term)
     printListing($string);
 }
 
-#-----------------------------------------------------------------------------
-/* print an html table for one single query of the api */
 
+/*******************************************************************************
+ * FUNCTION printListing: print an html table for one single query of the api
+ ******************************************************************************/
 function printListing($apiCall)
 {
     /* get JSON object */
@@ -280,9 +296,10 @@ function printListing($apiCall)
     }
 }
 
-#-----------------------------------------------------------------------------
-/* read file into a string */
 
+/*******************************************************************************
+ * FUNCTION curl_get_contents: read file into a string
+ ******************************************************************************/
 function curl_get_contents($url)
 {
     /* alternative to file_get_contents */
@@ -298,3 +315,4 @@ function curl_get_contents($url)
 
     return $data;
 }
+
