@@ -6,7 +6,7 @@
 
 <?php
     /***************************************************************************
-     * NetBeans ERROR SUPRESSION (TODO: remove if not needed)
+     * NetBeans ERROR SUPRESSION
      **************************************************************************/
     ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
@@ -289,9 +289,12 @@
 
                 /* create listingObj*/
                 $listingObj = new listingType();
-                $lineNumber->lineNumber = $course->lineNumber;
+                $listingObj->lineNumber = $course->lineNumber;
                 $listingObj->listingStr = $listing;
                 $listingObj->days = $days;
+
+                /* clear listing string */
+                $listing = "";
 
                 /* push listingObj to listingArr */
                 array_push($listingArr, $listingObj);
@@ -321,8 +324,8 @@
         }
 
         /* remaining html */
-        $listing .= "</table>";
-        $listing .= "<br />";
+        echo "</table>";
+        echo "<br />";
     }
 
 
