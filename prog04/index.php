@@ -54,6 +54,9 @@
         /* otherwise, call printSemester() */
         else
         {
+            echo "<h3>Spring</h3>";
+            printSemester("18/SP");
+
             echo "<h3>Summer</h3>";
             printSemester("18/SU");
 
@@ -75,6 +78,11 @@
         $stringPrefix .= "&instructor=$instructor&days=$days";
 
         /* call getListings() for each semester using all parameters */
+        $term = "18/SP";
+        $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
+        echo "<h3>2018 - Spring</h3>";
+        getListings($string);
+
         $term = "18/SU";
         $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2018 - Summer</h3>";
