@@ -20,10 +20,6 @@
 
     function main()
     {
-        /* todo */
-        echo 'in main()';
-        echo '<br/><br/>';
-
         $cust = new Customers();
 
         if(isset($_POST["name"]))
@@ -47,33 +43,33 @@
         }
         else
         {
-            $fnc = enumActions::id_LIST_RECORDS;
+            $fnc = "id_LIST_RECORDS";
         }
 
         switch($fnc)
         {
-            case enumActions::id_FORM_CREATE:
+            case "id_FORM_CREATE":
                 $cust->form_create();
                 break;
-            case enumActions::id_FORM_READ:
+            case "id_FORM_READ":
                 $cust->form_read();
                 break;
-            case enumActions::id_FORM_UPDATE:
+            case "id_FORM_UPDATE":
                 $cust->form_update();
                 break;
-            case enumActions::id_FORM_DELETE:
+            case "id_FORM_DELETE":
                 $cust->form_delete();
                 break;
-            case enumActions::id_DB_MOD_CREATE:
+            case "id_DB_MOD_CREATE":
                 $cust->db_mod_create();
                 break;
-            case enumActions::id_DB_MOD_UPDATE:
+            case "id_DB_MOD_UPDATE":
                 $cust->db_mod_update();
                 break;
-            case enumActions::id_DB_MOD_DELETE:
+            case "id_DB_MOD_DELETE":
                 $cust->db_mod_delete();
                 break;
-            case enumActions::id_LIST_RECORDS:
+            case "id_LIST_RECORDS":
             default:
                 $cust->list_records();
         }

@@ -1,18 +1,5 @@
 <?php
 
-abstract class enumActions
-{
-    public const id_FORM_CREATE = 0;
-    public const id_FORM_READ = 1;
-    public const id_FORM_UPDATE = 2;
-    public const id_FORM_DELETE = 3;
-    public const id_DB_MOD_CREATE = 5;
-    public const id_DB_MOD_UPDATE = 6;
-    public const id_DB_MOD_DELETE = 7;
-    public const id_LIST_RECORDS = 8;
-}
-
-
 class Customers
 {
     public $id;
@@ -48,7 +35,7 @@ class Customers
                         <p class='row'>
                             <h3>Create a $this->title</h3>
                         </p>
-                        <form class='form-horizontal' action='index.php?fnc=enumActions::id_DB_MOD_CREATE' method='post'>
+                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_CREATE' method='post'>
                     ";
         $this->control_group("name", $this->nameError, $this->name);
         $this->control_group("email", $this->emailError, $this->email);
@@ -89,7 +76,7 @@ class Customers
                         <p class='row'>
                             <h3>Delete a $this->title</h3>
                         </p>
-                        <form class='form-horizontal' action='index.php?fnc=enumActions::id_DB_MOD_DELETE' method='post'>
+                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_DELETE' method='post'>
                             Are you sure you want to delete?
                             <div class='form-actions'>
                                 <button type='submit' class='btn btn-success'>Yes</button>
@@ -126,7 +113,7 @@ class Customers
                         <p class='row'>
                             <h3>Read a $this->title</h3>
                         </p>
-                        <form class='form-horizontal' action='index.php?fnc=enumActions::id_DB_MOD_DELETE' method='post'>
+                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_DELETE' method='post'>
                             Are you sure you want to delete?
                             <div class='form-actions'>
                                 <button type='submit' class='btn btn-success'>Yes</button>
@@ -163,7 +150,7 @@ class Customers
                         <p class='row'>
                             <h3>Update a $this->title</h3>
                         </p>
-                        <form class='form-horizontal' action='index.php?fnc=enumActions::id_DB_MOD_UPDATE' method='post'>
+                        <form class='form-horizontal' action='index.php?fnc=id_DB_MOD_UPDATE' method='post'>
                     ";
         $this->control_group("name", $this->nameError, $this->name);
         $this->control_group("email", $this->emailError, $this->email);
@@ -199,7 +186,7 @@ class Customers
             <body>
                 <div class='container'>
                     <p>
-                        <a href='index.php?fnc=enumActions::id_FORM_CREATE' class='btn btn-success'>Create</a>
+                        <a href='index.php?fnc=id_FORM_CREATE' class='btn btn-success'>Create</a>
                     </p>
                     <div class='row'>
                         <table class='table table-striped table-bordered'>
@@ -222,11 +209,11 @@ class Customers
             echo "<td>". $row["email"] . "</td>";
             echo "<td>". $row["mobile"] . "</td>";
             echo "<td width=250>";
-            echo "<a class='btn' href='index.php?fnc=enumActions::id_FORM_READ?id=".$row["id"]."'>Read</a>";
+            echo "<a class='btn' href='index.php?fnc=id_FORM_READ&id=".$row["id"]."'>Read</a>";
             echo "&nbsp;";
-            echo "<a class='btn btn-success' href='index.php?fnc=enumActions::id_DB_MOD_UPDATE?id=".$row["id"]."'>Update</a>";
+            echo "<a class='btn btn-success' href='index.php?fnc=id_DB_MOD_UPDATE&id=".$row["id"]."'>Update</a>";
             echo "&nbsp;";
-            echo "<a class='btn btn-danger' href='index.php?fnc=enumActions::id_DB_MOD_DELETE?id=".$row["id"]."'>Delete</a>";
+            echo "<a class='btn btn-danger' href='index.php?fnc=id_DB_MOD_DELETE&id=".$row["id"]."'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
