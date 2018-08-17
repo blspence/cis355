@@ -55,24 +55,22 @@
      **************************************************************************/
     function printCourses($prefix, $courseNumber, $instructor)
     {
-        /* call getListing() for each semester using all parameters */
-        $term = "18/SP";
-        $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
-        echo "<h3>2018 - Spring</h3>";
-        getListing($string);
+        $stringPrefix = "$prefix&courseNumber=$courseNumber";
+        $stringPrefix .= "&instructor=$instructor";
 
+        /* call getListing() for each semester using all parameters */
         $term = "18/SU";
-        $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+        $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2018 - Summer</h3>";
         getListing($string);
 
         $term = "18/FA";
-        $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+        $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2018 - Fall</h3>";
         getListing($string);
 
         $term = "19/WI";
-        $string = $GLOBALS['api_base_addr'] . "$prefix&courseNumber=$courseNumber&term=$term&instructor=$instructor";
+        $string = $GLOBALS['api_base_addr'] . $stringPrefix . "&term=$term";
         echo "<h3>2019 - Winter</h3>";
         getListing($string);
     }
