@@ -319,14 +319,46 @@
         }
     }
 
+
+    /***************************************************************************
+     * FUNCTION quickSort: sorts given array in ascending order recursively
+     **************************************************************************/
+    function quickSort($arr)
+    {
+        if(!$length = count($arr))
+        {
+            return $arr;
+        }
+
+        $k = $arr[0];
+        $x = $y = array();
+
+        for($i = 1; $i < $length; $i++)
+        {
+            if($arr[$i]->days <= $k->days)
+            {
+                $x[] = $arr[$i];
+            }
+            else
+            {
+                $y[] = $arr[$i];
+            }
+        }
+
+        return array_merge(quickSort($x), array($k), quickSort($y));
+    }
+
+
     /***************************************************************************
      * FUNCTION printListings: prints given listings, sorted by day of week;
      *                         takes an array of listingType objects
      **************************************************************************/
     function printListings($listingArr)
     {
+        $sortedArr = quickSort($listingArr);
+
         /* print array */
-        foreach($listingArr as &$listingObj)
+        foreach($sortedArr as &$listingObj)
         {
             echo $listingObj->listingStr;
         }
