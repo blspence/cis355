@@ -6,10 +6,12 @@ class Customers
     public $name;
     public $email;
     public $mobile;
+    public $content;
 
     private $nameError = null;
     private $emailError = null;
     private $mobileError = null;
+    private $contentError = null;
 
     private $title = "Customer";
 
@@ -46,6 +48,8 @@ class Customers
                              'Mobile Number',
                              $this->mobileError,
                              $this->mobile);
+
+        $this->input_pic();
 
         echo '        <div class="form-actions">                              ';
         echo '          <button type="submit"                                 ';
@@ -144,6 +148,7 @@ class Customers
         $this->control_group_read("Name", $data["name"]);
         $this->control_group_read("Email Address", $data["mobile"]);
         $this->control_group_read("Mobile Number", $data["email"]);
+        $this->read_pic($data["content"]);
 
         echo '                <div class="form-actions">                    ';
         echo '                    <a class="btn" href="index.php">Back</a>  ';
@@ -157,8 +162,6 @@ class Customers
 
     function form_update()
     {
-        echo 'IN FUNC: form_update() <br/>';
-
         echo '<html lang="en">                                                ';
         echo '<head>                                                          ';
         echo '  <meta charset="utf-8">                                        ';
@@ -191,6 +194,8 @@ class Customers
                              $this->mobileError,
                              $this->mobile);
 
+        $this->input_pic();
+
         echo '        <div class="form-actions">                              ';
         echo '          <button type="submit"                                 ';
         echo '                  class="btn btn-success">                      ';
@@ -206,61 +211,78 @@ class Customers
 
     function list_records()
     {
-        echo "
-        <html>
-            <head>
-                <title>$this->title" . "s" . "</title>
-                    ";
-        echo "
-                <meta charset='UTF-8'>
-                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css' rel='stylesheet'>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js'></script>
-                    ";
-        echo "
-            </head>
-            <body>
-                <div class='container'>
-                    <p>
-                        <a href='index.php?fnc=id_FORM_CREATE' class='btn btn-success'>Create</a>
-                    </p>
-                    <div class='row'>
-                        <table class='table table-striped table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    ";
+          echo '<html lang="en">                                              ';
+          echo '<head>                                                        ';
+          echo '  <meta charset="utf-8">                                      ';
+          echo '  <link href="../../css/bootstrap.min.css" rel="stylesheet">  ';
+          echo '  <link href="../../css/cis355.css" rel="stylesheet">         ';
+          echo '</head>                                                       ';
+          echo '                                                              ';
+          echo '<body>                                                        ';
+          echo '  <div class="container">                                     ';
+          echo '    <p>                                                       ';
+          echo "    <a href='index.php?fnc=id_FORM_CREATE'                    ";
+          echo "       class='btn btn-success'>Create</a>                     ";
+          echo '    </p>                                                      ';
+          echo '  <div class="container">                                     ';
+          echo '    <div class="row">                                         ';
+          echo '      <table class="table table-striped table-bordered">      ';
+          echo '        <thead>                                               ';
+          echo '          <tr>                                                ';
+          echo '            <th>Name</th>                                     ';
+          echo '            <th>Email</th>                                    ';
+          echo '            <th>Mobile</th>                                   ';
+          echo '            <th>Action</th>                                   ';
+          echo '          </tr>                                               ';
+          echo '        </thead>                                              ';
+          echo '        <tbody>                                               ';
+
         $pdo = Database::connect();
         $sql = "SELECT * FROM customers ORDER BY id DESC";
         foreach($pdo->query($sql) as $row)
         {
-            echo "<tr>";
-            echo "<td>". $row["name"] . "</td>";
-            echo "<td>". $row["email"] . "</td>";
-            echo "<td>". $row["mobile"] . "</td>";
-            echo "<td width=250>";
-            echo "<a class='btn' href='index.php?fnc=id_FORM_READ&id=".$row["id"]."'>Read</a>";
-            echo "&nbsp;";
-            echo "<a class='btn btn-success' href='index.php?fnc=id_DB_MOD_UPDATE&id=".$row["id"]."'>Update</a>";
-            echo "&nbsp;";
-            echo "<a class='btn btn-danger' href='index.php?fnc=id_FORM_DELETE&id=".$row["id"]."'>Delete</a>";
-            echo "</td>";
-            echo "</tr>";
+          echo "          <tr>";
+          echo "            <td>". $row["name"] . "</td>";
+          echo "            <td>". $row["email"] . "</td>";
+          echo "            <td>". $row["mobile"] . "</td>";
+          echo "            <td width=250>";
+          echo "              <a class='btn'
+                                 href='index.php?fnc=id_FORM_READ&id=".$row["id"]."'>Read</a>";
+          echo "                 &nbsp;";
+          echo "              <a class='btn btn-success'
+                                 href='index.php?fnc=id_DB_MOD_UPDATE&id=".$row["id"]."'>Update</a>";
+          echo "                 &nbsp;";
+          echo "              <a class='btn btn-danger'
+                                 href='index.php?fnc=id_FORM_DELETE&id=".$row["id"]."'>Delete</a>";
+          echo "            </td>";
+          echo "          </tr>";
         }
         Database::disconnect();
-        echo "
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </body>
-        </html>
-        ";
+
+        echo '          </tbody>                                              ';
+        echo '        </table>                                                ';
+        echo '      </div>                                                    ';
+        echo '    </div>                                                      ';
+        echo '  </body>                                                       ';
+        echo '</html>                                                         ';
+    }
+
+    function read_pic($pic)
+    {
+    }
+
+    function input_pic()
+    {
+        echo "<form method='post' action='upload03.php'                       ";
+        echo "      onsubmit='return Validate(this);'                         ";
+        echo "      enctype='multipart/form-data'>                            ";
+        echo "    <p>File</p>                                                 ";
+        echo "    <input type='file' required name='Filename'><br/>           ";
+        echo "    <p>Description</p>                                          ";
+        echo "    <textarea rows='5' cols='30'                                ";
+        echo "              name='Description'></textarea><br/>               ";
+        echo "    <input type='submit' name='upload' value='Submit'/>         ";
+        echo "</form>                                                         ";
     }
 
     function control_group_read($label, $val)
@@ -318,14 +340,27 @@ class Customers
             $valid = false;
         }
 
+        if(empty($this->content))
+        {
+            $this->contentError = 'Please upload Picture';
+            $valid = false;
+        }
+        else
+        {
+            /* TODO: ensure valid file format */
+        }
+
         if($valid)
         {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO customers (name, email, mobile)";
-            $sql .= " values(?, ?, ?)";
+            $sql  = "INSERT INTO customers (name, email, mobile, content)";
+            $sql .= " values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($this->name, $this->email, $this->mobile));
+            $q->execute(array($this->name,
+                              $this->email,
+                              $this->mobile,
+                              $this->content));
             Database::disconnect();
             header("Location: index.php");
         }
@@ -337,8 +372,6 @@ class Customers
 
     function db_mod_update()
     {
-        echo 'IN FUNC: db_mod_update() <br/>';
-
         $this->id = null;
 
         if(!empty($_GET['id']))
@@ -350,8 +383,6 @@ class Customers
         {
             header("Location: index.php");
         }
-
-        echo "id: $this->id <br/>";
 
         $valid = true;
 
@@ -375,8 +406,6 @@ class Customers
 
         if($valid)
         {
-            echo '$valid <br/>';
-
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "UPDATE customers SET name = ?, email = ?, mobile =? WHERE id = ?";
@@ -387,8 +416,6 @@ class Customers
         }
         else
         {
-            echo 'NOT $valid <br/>';
-
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $sql = "SELECT * FROM customers where id = ?";
