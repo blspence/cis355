@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.12deb2+deb8u3
--- http://www.phpmyadmin.net
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Aug 05, 2018 at 07:14 PM
--- Server version: 5.5.60-0+deb8u1
--- PHP Version: 5.6.36-0+deb8u1
+-- Host: 127.0.0.1
+-- Generation Time: Aug 18, 2018 at 09:15 PM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 -- *****************************************************************************
 -- TO SETUP DB FROM SCRATCH FOR Prog03:
@@ -25,13 +25,15 @@ GRANT ALL PRIVILEGES ON *.* TO 'blspence'@'localhost';
 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `blspence`
@@ -43,12 +45,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `customers`
 --
 
-CREATE TABLE IF NOT EXISTS `customers` (
-`id` int(11) NOT NULL,
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `mobile` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customers`
@@ -58,7 +60,7 @@ INSERT INTO `customers` (`id`, `name`, `email`, `mobile`) VALUES
 (14, 'Dwight Schrute', 'AARM@Dunder.Mifflin.com', '570-555-0123'),
 (16, 'Jim Halpert', 'Pro.Prankster@Dunder.Mifflin.com', '570-555-1234'),
 (17, 'Pam Halpert', 'Pro.Artist@Dunder.Mifflin.com', '570-555-2345'),
-(18, 'Pete "Plop" Miller', 'Mr.Steal.Your.Girl@Dunder.Mifflin.com', '570-555-0124'),
+(18, 'Pete \"Plop\" Miller', 'Mr.Steal.Your.Girl@Dunder.Mifflin.com', '570-555-0124'),
 (19, 'Toby Flenderson', 'Scranton.Strangler@Dunder.Mifflin.com', '570-555-2346');
 
 -- --------------------------------------------------------
@@ -67,13 +69,13 @@ INSERT INTO `customers` (`id`, `name`, `email`, `mobile`) VALUES
 -- Table structure for table `events`
 --
 
-CREATE TABLE IF NOT EXISTS `events` (
-`id` int(11) NOT NULL,
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
   `event_date` date NOT NULL,
   `event_time` time NOT NULL,
   `event_location` varchar(50) NOT NULL,
   `event_description` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
@@ -86,17 +88,46 @@ INSERT INTO `events` (`id`, `event_date`, `event_time`, `event_location`, `event
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `upload02`
+--
+
+CREATE TABLE `upload02` (
+  `id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `filetype` varchar(255) NOT NULL,
+  `filesize` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upload03`
+--
+
+CREATE TABLE `upload03` (
+  `id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `filesize` int(11) NOT NULL,
+  `filetype` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `content` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-`id` int(11) NOT NULL,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `mobile` varchar(100) NOT NULL,
   `password` varchar(250) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -114,19 +145,31 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `mobile`, `password`) VALU
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `upload02`
+--
+ALTER TABLE `upload02`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indexes for table `upload03`
+--
+ALTER TABLE `upload03`
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -136,17 +179,33 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `upload02`
+--
+ALTER TABLE `upload02`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `upload03`
+--
+ALTER TABLE `upload03`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
