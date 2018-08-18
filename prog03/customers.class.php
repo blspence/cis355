@@ -6,12 +6,10 @@ class Customers
     public $name;
     public $email;
     public $mobile;
-    public $content;
 
     private $nameError = null;
     private $emailError = null;
     private $mobileError = null;
-    private $contentError = null;
 
     private $title = "Customer";
 
@@ -48,8 +46,6 @@ class Customers
                              'Mobile Number',
                              $this->mobileError,
                              $this->mobile);
-
-        $this->input_pic();
 
         echo '        <div class="form-actions">                              ';
         echo '          <button type="submit"                                 ';
@@ -148,7 +144,6 @@ class Customers
         $this->control_group_read("Name", $data["name"]);
         $this->control_group_read("Email Address", $data["mobile"]);
         $this->control_group_read("Mobile Number", $data["email"]);
-        $this->read_pic($data["content"]);
 
         echo '                <div class="form-actions">                    ';
         echo '                    <a class="btn" href="index.php">Back</a>  ';
@@ -193,8 +188,6 @@ class Customers
                              'Mobile Number',
                              $this->mobileError,
                              $this->mobile);
-
-        $this->input_pic();
 
         echo '        <div class="form-actions">                              ';
         echo '          <button type="submit"                                 ';
@@ -267,23 +260,7 @@ class Customers
         echo '</html>                                                         ';
     }
 
-    function read_pic($pic)
-    {
-    }
-
-    function input_pic()
-    {
-        echo "<form method='post' action='upload03.php'                       ";
-        echo "      onsubmit='return Validate(this);'                         ";
-        echo "      enctype='multipart/form-data'>                            ";
-        echo "    <p>File</p>                                                 ";
-        echo "    <input type='file' required name='Filename'><br/>           ";
-        echo "    <p>Description</p>                                          ";
-        echo "    <textarea rows='5' cols='30'                                ";
-        echo "              name='Description'></textarea><br/>               ";
-        echo "    <input type='submit' name='upload' value='Submit'/>         ";
-        echo "</form>                                                         ";
-    }
+   
 
     function control_group_read($label, $val)
     {
@@ -340,27 +317,14 @@ class Customers
             $valid = false;
         }
 
-        if(empty($this->content))
-        {
-            $this->contentError = 'Please upload Picture';
-            $valid = false;
-        }
-        else
-        {
-            /* TODO: ensure valid file format */
-        }
-
         if($valid)
         {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql  = "INSERT INTO customers (name, email, mobile, content)";
-            $sql .= " values(?, ?, ?, ?)";
+            $sql = "INSERT INTO customers (name, email, mobile)";
+            $sql .= " values(?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($this->name,
-                              $this->email,
-                              $this->mobile,
-                              $this->content));
+            $q->execute(array($this->name, $this->email, $this->mobile));
             Database::disconnect();
             header("Location: index.php");
         }

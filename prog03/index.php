@@ -104,17 +104,46 @@
     <!-- HTML Body Container *********************************************** -->
     <div class="container">
 
-        <!-- GitHub Button ************************************************* -->
-        <div class="btn-group" role="group">
-            <a href="https://github.com/blspence/cis355/tree/master/prog03"
-               target="_blank"
-               class="btn btn-primary"
-               role="button"
-               aria-pressed="false">
-                   Go to GitHub
-            </a>
+        <!-- Buttons ******************************************************* -->
+        <div class="btn-toolbar">
+            <div class="btn-group" role="group">
+                <a href="https://github.com/blspence/cis355/tree/master/prog03"
+                   target="_blank"
+                   class="btn btn-primary"
+                   role="button"
+                   aria-pressed="false">
+                       Go to GitHub
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="upload01/upload01.html"
+                   target="_blank"
+                   class="btn btn-primary btn-info"
+                   role="button"
+                   aria-pressed="false">
+                       upload01
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="upload02/upload02.html"
+                   target="_blank"
+                   class="btn btn-primary btn-info"
+                   role="button"
+                   aria-pressed="false">
+                       upload02
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="upload03/upload03.html"
+                   target="_blank"
+                   class="btn btn-primary btn-info"
+                   role="button"
+                   aria-pressed="false">
+                       upload03
+                </a>
+            </div>
         </div>
-        <!-- Course Lookup ************************************************* -->
+        <!-- TITLE ********************************************************* -->
         <div class="row">
             <div class=".col-md-12">
                 <br/>
